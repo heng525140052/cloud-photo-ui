@@ -1,15 +1,16 @@
 import Router from "vue-router"
 import Vue from 'vue'
 
-import foo from './views/foo'
-import bar from './views/bar'
+import user_signup from './views/user/signup'
+import user_login from './views/user/login'
 
 Vue.use(Router)
 
 
 const routes = [
-    { path: '/foo', component: foo },
-    { path: '/bar', component: bar }
+    // { path: '/', component: user_login },
+    { path: '/user/login', component: user_login },
+    { path: '/user/signup', component: user_signup }
 ]
 
 // 3. 创建 router 实例，然后传 `routes` 配置
