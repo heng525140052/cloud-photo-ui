@@ -1,18 +1,21 @@
 import Router from "vue-router"
 import Vue from 'vue'
 
+import HelloWorld from './components/HelloWorld'
 import user_signup from './views/user/signup'
 import user_login from './views/user/login'
-import user_home from './views/home/home'
+import drive from './views/home/my-drive'
+import menu from './views/home/menu'
 
 Vue.use(Router)
 
 
 const routes = [
-    // { path: '/', component: user_login },
+    {path: '/', component: HelloWorld},
     {path: '/user/login', component: user_login},
     {path: '/user/signup', component: user_signup},
-    {path: '/home', component: user_home}
+    {path: '/drive', component: drive},
+    {path: '/menu', component: menu}
 ]
 
 // 3. 创建 router 实例，然后传 `routes` 配置
