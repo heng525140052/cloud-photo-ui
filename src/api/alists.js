@@ -8,11 +8,10 @@ const qs = require('qs');
 export function aliSTS2() {
 
     const params = {
-        AccessKeyId: 'LTAI4GL1io43S3UJiv6TThRa',
         Action: 'AssumeRole',
         Format: 'JSON',
-        RoleArn: 'acs:ram::xxxxxxxx:role/xxxxxx',
-        RoleSessionName: 'ann-sts-nodejs 此处自定义，注意字符限制 字母和-数字的组合',
+        RoleArn: 'acs:ram::*:role/*',
+        RoleSessionName: 'ann-sts-nodejs123412',
         SignatureMethod: 'HMAC-SHA1',
         SignatureNonce: new Date().getTime().toLocaleString(),//随机字符串吧
         SignatureVersion: '1.0',
@@ -27,7 +26,6 @@ export function aliSTS2() {
     // StringToSign = urlencode(StringToSign)
     console.log('StringToSign')
     console.log(StringToSign)
-    const key = 'LTAI4GL1io43S3UJiv6TThRa';
 
     var sign = CryptoJS.enc.Base64.stringify(CryptoJS.HmacSHA1(StringToSign,`${key}&`))
     console.log('签名')
@@ -48,7 +46,6 @@ export function aliSTS2() {
                 ...params,
                 Signature: signature ,//sign也可以 两种加密库的实现，浏览器环境和node环境的切换吧，自己选
             }
-
         }
     ).then((res)=>{
         console.log('axios then')
