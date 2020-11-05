@@ -27,32 +27,25 @@
 // import {UserRegist} from "@/api/product";
 // import util from '@/libs/util.js'
 // import axios from 'axios';
-import {aliSTS2} from "@/api/alists";
+// eslint-disable-next-line no-unused-vars
+import AliOssController from "@/api/alioss";
+
 export default {
   data() {
-    return {}
+    return {
+      menuDir: '/',
+    }
   },
-  filters: {
-
-  },
+  filters: {},
   methods: {
 
-    testClick() {
-      // const url = 'https://sts.aliyuncs.com';
-      // console.log(url)
-      aliSTS2()
 
-      // axios.get(url).then(
-      //     response => {
-      //       const result = response.data.items[0];
-      //       console.log(result)
-      //     }
-      // ).catch(
-      //     response => {
-      //       alert('请求失败');
-      //       console.log(response)
-      //     },
-      // );
+    testClick() {
+
+      const aa = AliOssController.listDir(this.menuDir);
+      console.log(aa,'------------------')
+
+      // AliOssController.Objectlist()
 
     },
   }
