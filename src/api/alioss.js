@@ -39,37 +39,28 @@ class AliOssController {
             prefix: dir,
             delimiter: '/'
         });
-        console.log(result);
-
-        result.prefixes.forEach(subDir => {
-            console.log('SubDir: %s', subDir);
-        });
+        return result.prefixes
     }
 
 
-    static async Objectist() {
+    static async ObjectList(params) {
 
         try {
             // 不带任何参数，默认最多返回1000个文件。
-            let result = await client.list();
-            console.log(result);
+            // let result = await client.list();
+            // console.log(result);
             // 根据nextMarker继续列出文件。
-            if (result.isTruncated) {
-                result = await client.list({
-                    marker: result.nextMarker
-                });
-            }
-            // 列举前缀为'my-'的文件。
-            result = await client.list({
-                prefix: 'my-'
-            });
-            console.log(result);
+            // if (result.isTruncated) {
+            //     result = await client.list({
+            //         marker: result.nextMarker
+            //     });
+            // }
             // 列举前缀为'my-'且在'my-object'之后的文件。
-            result = await client.list({
-                prefix: 'my-',
-                marker: 'my-object'
-            });
-            console.log(result);
+            return await client.list({
+                prefix: params.prefix,
+                marker: params.marker,
+                'max-keys': params.max_keys
+            })
         } catch (e) {
             console.log(e);
         }

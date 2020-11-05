@@ -30,22 +30,39 @@
 // eslint-disable-next-line no-unused-vars
 import AliOssController from "@/api/alioss";
 
+
 export default {
   data() {
     return {
-      menuDir: '/',
+      menuDir: '',
+      dir_list: [],
+      file_list: [],
     }
   },
   filters: {},
+  mounted() {
+    this.dirList()
+  },
   methods: {
 
+    dirList() {
+      this.dir_list = AliOssController.listDir(this.menuDir);
+    },
+    fileList() {
 
+      const params = {
+        prefix: "",
+        marker: "",
+        max_keys: 10,
+      }
+      this.file_list = AliOssController.ObjectList(params);
+      console.log('------------------')
+      console.log(this.file_list)
+      console.log('------------------')
+    },
     testClick() {
 
-      const aa = AliOssController.listDir(this.menuDir);
-      console.log(aa,'------------------')
 
-      // AliOssController.Objectlist()
 
     },
   }
