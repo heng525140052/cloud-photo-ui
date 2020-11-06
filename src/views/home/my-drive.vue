@@ -55,7 +55,9 @@ export default {
         marker: "",
         max_keys: 10,
       }
+
       this.file_list = AliOssController.ObjectList(params);
+
       console.log('------------------')
       console.log(this.file_list)
       console.log('------------------')
