@@ -7,14 +7,12 @@ var client = new OSS({
     region: 'oss-cn-beijing'
 });
 
-console.log(client, 'clientclientclientclientclientclientclientclient')
 
 class AliOssController {
 
     static async listBuckets() {
         try {
-            const result = await client.listObjectVersions();
-            console.log(result, 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
+            return await client.listObjectVersions()
         } catch (err) {
             console.log(err);
         }
