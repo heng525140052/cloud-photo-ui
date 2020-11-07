@@ -63,6 +63,7 @@
         <span>Notifications</span>
       </v-tooltip>
 
+
       <v-menu offset-y left>
         <template v-slot:activator="{ on }">
           <v-btn small color="red" depressed fab v-on="on" class="white--text">
@@ -119,11 +120,11 @@
         :temporary="$route.name === 'Watch'"
         id="nav"
     >
-      <div tag="div" class="v-navigation-drawer__content" v-bar>
+      <div tag="div" class="v-navigation-drawer__content">
         <v-list dense nav class="py-0" tag="div">
           <v-list-item
               :class="{
-              'hidden-lg-and-up': $route.name === 'Watch' ? false : true
+              'hidden-lg-and-up': $route.name!=='Watch'
             }"
           >
             <v-app-bar-nav-icon
@@ -153,31 +154,15 @@
                 <v-icon>{{ item.icon }}</v-icon>
               </v-list-item-icon>
               <v-list-item-avatar v-else class="mr-5">
-                <img
-                    :src="`https://randomuser.me/api/portraits/men/${i}.jpg`"
-                />
+                <img :src="`https://randomuser.me/api/portraits/men/${i}.jpg`"/>
               </v-list-item-avatar>
               <v-list-item-content>
-                <v-list-item-title class=" font-weight-medium subtitle-2">{{
-                    item.title
-                  }}</v-list-item-title>
+                <v-list-item-title class=" font-weight-medium subtitle-2">{{item.title}}</v-list-item-title>
               </v-list-item-content>
             </v-list-item>
             <v-divider class="mt-2 mb-2"></v-divider>
           </div>
 
-          <span v-for="link in links" :key="link.text">
-            <span v-if="link.text === 'Terms'" class="mb-2 d-block"> </span>
-            <v-btn
-                href
-                router
-                :to="link.link"
-                text
-                class="text-capitalize px-1"
-                small
-            >{{ link.text }}</v-btn
-            >
-          </span>
         </v-list>
       </div>
     </v-navigation-drawer>
@@ -201,121 +186,6 @@ export default {
           }
         ]
       },
-      {
-        header: null,
-        pages: [
-          {
-            title: 'Library',
-            link: '#l',
-            icon: 'mdi-play-box-multiple'
-          },
-          {
-            title: 'History',
-            link: '/history',
-            icon: 'mdi-history'
-          },
-          {
-            title: 'Your videos',
-            link: '/channels/ddd',
-            icon: 'mdi-play-box-outline'
-          },
-
-          {
-            title: 'Watch later',
-            link: '#wl',
-            icon: 'mdi-clock'
-          },
-
-          {
-            title: 'Liked videos',
-            link: '#lw',
-            icon: 'mdi-thumb-up'
-          }
-        ]
-      },
-      {
-        header: 'Subscriptions',
-        pages: [
-          {
-            title: 'Traversy Media',
-            link: '#tm',
-            icon: 'mdi-badge-account'
-          },
-          {
-            title: 'The New Boston',
-            link: '#tn',
-            icon: 'mdi-badge-account'
-          },
-          {
-            title: 'Net Ninija',
-            link: '#nn',
-            icon: 'mdi-badge-account'
-          },
-          {
-            title: 'Chris Hawks',
-            link: '#ch',
-            icon: 'mdi-badge-account'
-          }
-        ]
-      },
-      {
-        header: 'MORE FROM VUETUBE',
-        pages: [
-          {
-            title: 'VueTube Premium',
-            link: '#vp',
-            icon: 'mdi-youtube'
-          },
-          {
-            title: 'Gaming',
-            link: '#g',
-            icon: 'mdi-youtube-gaming'
-          },
-          {
-            title: 'Live',
-            link: '#li',
-            icon: 'mdi-access-point'
-          }
-        ]
-      },
-      {
-        header: null,
-        pages: [
-          {
-            title: 'Setting',
-            link: '#sg',
-            icon: 'mdi-cog'
-          },
-          {
-            title: 'Report history',
-            link: '#rh',
-            icon: 'mdi-flag'
-          },
-          {
-            title: 'Help',
-            link: '#hp',
-            icon: 'mdi-help-circle'
-          },
-          {
-            title: 'Send feedback',
-            link: '#f',
-            icon: 'mdi-message-alert'
-          }
-        ]
-      }
-    ],
-    links: [
-      { text: 'About', link: '#' },
-      { text: 'Press', link: '#' },
-      { text: 'Copyrignt', link: '#' },
-      { text: 'Contact us', link: '#' },
-      { text: 'Creators', link: '#' },
-      { text: 'Advertise', link: '#' },
-      { text: 'Developers', link: '#' },
-      { text: 'Terms', link: '#' },
-      { text: 'Privacy', link: '#' },
-      { text: 'Policy & Safety', link: '#' },
-      { text: 'Test new features', link: '#' }
     ],
     searchText: ''
   }),

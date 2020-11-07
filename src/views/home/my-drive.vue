@@ -1,34 +1,35 @@
 <template>
-  <div>
-    <div class="text-center">
-      <v-btn
-          rounded
-          color="primary"
-          dark
-          @click="testClick()"
-      >
-        Rounded Button
-      </v-btn>
-    </div>
-    哈哈哈哈哈哈哈哈哈哈或或或或或或或
-    哈哈哈哈哈哈哈哈哈哈或或或或或或或
-    哈哈哈哈哈哈哈哈哈哈或或或或或或或
-    哈哈哈哈哈哈哈哈哈哈或或或或或或或
-    哈哈哈哈哈哈哈哈哈哈或或或或或或或
-    哈哈哈哈哈哈哈哈哈哈或或或或或或或
-    哈哈哈哈哈哈哈哈哈哈或或或或或或或
-    哈哈哈哈哈哈哈哈哈哈或或或或或或或
-    哈哈哈哈哈哈哈哈哈哈或或或或或或或
-  </div>
+  <div id="home" class="pa-4">
+    <v-container fluid>
+      <h3 class="headline font-weight-medium">文件</h3>
+      <v-row>
+        <v-col
+            cols="12"
+            sm="12"
+            md="5"
+            lg="2"
+            v-for="(drive,i) in file_list"
+            :key="i"
+            class="mx-xs-auto"
+        >
+          <v-skeleton-loader type="card-avatar" :loading="loading">
+            <drive-card
+                :card="{ maxWidth: 350 }"
+                :drive="drive"
+                :channel="channel"
+            ></drive-card>
 
+          </v-skeleton-loader>
+        </v-col>
+      </v-row>
+    </v-container>
+  </div>
 </template>
 
 <script>
-// import {UserRegist} from "@/api/product";
-// import util from '@/libs/util.js'
-// import axios from 'axios';
-// eslint-disable-next-line no-unused-vars
+
 import AliOssController from "@/api/alioss";
+import DriveCard from '@/components/DriveCard'
 
 
 export default {
@@ -37,11 +38,24 @@ export default {
       menuDir: '',
       dir_list: [],
       file_list: [],
+      loading: true,
+      channel: {
+        url: '/channels/12',
+        avatar: 'https://randomuser.me/api/portraits/men/1.jpg'
+      }
+
     }
   },
   filters: {},
+  components: {
+    DriveCard
+  },
   mounted() {
-    this.dirList()
+    setTimeout(() => {
+      this.loading = false
+    }, 3000)
+
+    this.fileList()
   },
   methods: {
 
@@ -53,17 +67,12 @@ export default {
       const params = {
         prefix: "",
         marker: "",
-        max_keys: 10,
+        max_keys: 20,
       }
 
-      this.file_list = AliOssController.ObjectList(params);
-
-      console.log('------------------')
-      console.log(this.file_list)
-      console.log('------------------')
-    },
-    testClick() {
-
+      AliOssController.ObjectList(params).then(data => {
+        this.file_list = data.objects
+      });
 
 
     },
