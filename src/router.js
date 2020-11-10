@@ -15,6 +15,14 @@ const routes = [
             default: () => import(/* webpackChunkName: "about" */ './views/home/my-drive')
         }
     },
+    {
+        path: '/folders',
+        name: 'folders',
+        components: {
+            NavBar,
+            default: () => import(/* webpackChunkName: "about" */ './views/home/folders')
+        }
+    },
 
 ]
 
