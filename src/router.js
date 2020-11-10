@@ -19,7 +19,7 @@ const routes = [
         path: '/folders',
         name: 'folders',
         components: {
-            NavBar,
+            // NavBar,
             default: () => import(/* webpackChunkName: "about" */ './views/home/folders')
         }
     },

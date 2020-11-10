@@ -6,10 +6,13 @@ import vuetify from './plugins/vuetify'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
+
 import 'viewerjs/dist/viewer.css'
 import Viewer from 'v-viewer'
 Vue.use(Viewer, {
-  debug: true,
+  // debug: true,
   defaultOptions: {
     zIndex: 9999
   }
@@ -21,5 +24,6 @@ new Vue({
   render: h => h(App),
   router,
   VueAxios,
-  axios
+  axios,
+  ElementUI
 }).$mount('#app')

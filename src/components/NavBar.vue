@@ -134,6 +134,38 @@
             <v-toolbar-title class="font-weight-bold">VueTube</v-toolbar-title>
           </v-list-item>
           <v-divider class="hidden-lg-and-up"></v-divider>
+
+
+
+
+          <div class="text-center">
+            <v-menu offset-y>
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                >
+                  Dropdown
+                </v-btn>
+              </template>
+              <v-list>
+                <v-list-item
+                    v-for="(item, index) in uploadLists"
+                    :key="index"
+                    @click="item.methods"
+                >
+                  <v-list-item-title>{{ item.title }}{{item.methods}}</v-list-item-title>
+                </v-list-item>
+              </v-list>
+            </v-menu>
+          </div>
+
+
+
+
+
           <div v-for="parentItem in items" :key="parentItem.header">
             <v-subheader
                 v-if="parentItem.header"
@@ -171,24 +203,43 @@
 
 <script>
 export default {
-  data: () => ({
-    drawer: false,
-    items: [
-      {
-        header: null,
-        pages: [
-          { title: 'Home', link: '/', icon: 'mdi-home' },
-          { title: 'Trending', link: '/trending', icon: 'mdi-fire' },
-          {
-            title: 'Subscriptions',
-            link: '#s',
-            icon: 'mdi-youtube-subscription'
-          }
-        ]
-      },
-    ],
-    searchText: ''
-  }),
+  data() {
+    return {
+      drawer: false,
+      uploadLists:[
+        {
+          title: '上传文件',
+          methods:"uploadFile()"
+        },
+        {
+          title: '上传文件夹',
+          methods:"uploadFolders"
+
+        },
+        {
+          title: '创建文件夹',
+          methods:"createFolders"
+
+        },
+      ],
+      items: [
+        {
+          header: null,
+          pages: [
+            { title: 'Home', link: '/', icon: 'mdi-home' },
+            { title: 'Trending', link: '/trending', icon: 'mdi-fire' },
+            {
+              title: 'Subscriptions',
+              link: '#s',
+              icon: 'mdi-youtube-subscription'
+            }
+          ]
+        },
+      ],
+      searchText: ''
+
+    }
+  },
   methods: {
     search() {
       if (!this.searchText) return
@@ -196,7 +247,12 @@ export default {
         name: 'Search',
         query: { 'search-query': this.searchText }
       })
+    },
+    uploadFile(){
+      alert(1231231)
+      console.log('1231231231')
     }
+
   },
   mounted() {
     this.drawer = this.$vuetify.breakpoint.mdAndDown ? false : true

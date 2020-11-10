@@ -1,15 +1,16 @@
 <template>
   <div id="home" class="pa-4">
     <v-container fluid>
-      <h3 class="headline font-weight-medium">Recommended</h3>
+      <h3 class="headline font-weight-medium">文件</h3>
+
       <v-row>
         <v-col
             cols="12"
-            sm="6"
-            md="4"
+            sm="12"
+            md="5"
             lg="2"
-            v-for="i in loading ? 10 : 12"
-            :key="i"
+            v-for="(drive) in file_list"
+            :key="drive"
             class="mx-xs-auto"
         >
           <v-skeleton-loader type="card-avatar" :loading="loading">
@@ -21,44 +22,18 @@
                 tile
                 router
             >
+
               <div class="images" v-viewer="{movable: false}">
                 <v-img
-                    src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
-                    height="200px"
-                    key="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
+                    :src="drive"
+                    :key="drive"
                     @click="show"
+                    height="200px"
                 ></v-img>
               </div>
-              <button type="button" >Show</button>
 
-
-              <v-row no-gutters>
-                <v-col cols="2">
-                  <v-list-item class="pl-0 pt-3" router to="/channels/12">
-                    <v-list-item-avatar color="grey darken-3">
-                      <v-img
-                          class="elevation-6"
-                          src="https://randomuser.me/api/portraits/men/1.jpg"
-                      ></v-img>
-                    </v-list-item-avatar>
-                  </v-list-item>
-                </v-col>
-                <v-col>
-                  <v-card-title class="pl-2 pt-3 subtitle-1 font-weight-bold">
-                    Top western road trips
-                  </v-card-title>
-
-                  <v-card-subtitle class="pl-2 pb-0">
-                    1,000 miles of wonder
-                  </v-card-subtitle>
-                  <v-card-subtitle class="pl-2 pt-0">
-                    9.6k views
-                    <v-icon>mdi-circle-small</v-icon>
-                    6 hours ago
-                  </v-card-subtitle>
-                </v-col>
-              </v-row>
             </v-card>
+
           </v-skeleton-loader>
         </v-col>
       </v-row>
@@ -66,54 +41,57 @@
   </div>
 </template>
 
-
 <script>
-
-import AliOssController from "@/api/alioss";
+// import AliOssController from "@/api/alioss";
 
 export default {
   data() {
     return {
-      menuDir: '',
-      dir_list: [],
-      file_list: [],
+      loading: true,
+      file_list: [
+        "http://golong-cloud.oss-cn-beijing.aliyuncs.com/image/%E7%AC%94%E8%AE%B0%E6%9C%AC/006iD5XFly1g13k84qqfhj30g40g4ac5.jpg",
+        "http://golong-cloud.oss-cn-beijing.aliyuncs.com/image/%E7%AC%94%E8%AE%B0%E6%9C%AC/047f12f34da840541de85ba316ea2a8.png",
+      ]
+      // file_list: [
+      //   {
+      //     url: "http://golong-cloud.oss-cn-beijing.aliyuncs.com/image/%E7%AC%94%E8%AE%B0%E6%9C%AC/006iD5XFly1g13k84qqfhj30g40g4ac5.jpg"
+      //   },
+      //   {
+      //     url: "http://golong-cloud.oss-cn-beijing.aliyuncs.com/image/%E7%AC%94%E8%AE%B0%E6%9C%AC/047f12f34da840541de85ba316ea2a8.png"
+      //   }
+      // ]
+
     }
   },
-
-  filters: {},
   mounted() {
-    this.dirList()
+    setTimeout(() => {
+      this.loading = false
+    }, 1000)
+
+    this.fileList()
   },
   methods: {
-
-    dirList() {
-      this.dir_list = AliOssController.listDir(this.menuDir);
-    },
     fileList() {
 
-      const params = {
-        prefix: "",
-        marker: "",
-        max_keys: 10,
-      }
+      // const params = {
+      //   prefix: "",
+      //   marker: "",
+      //   max_keys: 20,
+      // }
 
-      this.file_list = AliOssController.ObjectList(params);
-
-      console.log('------------------')
-      console.log(this.file_list)
-      console.log('------------------')
+      // AliOssController.ObjectList(params).then(data => {
+      //   this.file_list = data.objects
+      //   console.log("this.file_list")
+      //   console.log(this.file_list)
+      //   console.log("this.file_list")
+      // });
     },
-    show () {
-      console.log('121213212312132123')
+
+    show() {
       const viewer = this.$el.querySelector('.images').$viewer
       viewer.show()
     }
+
   }
 }
-
-
 </script>
-
-<style scoped>
-
-</style>
