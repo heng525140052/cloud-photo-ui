@@ -1,17 +1,20 @@
 <template>
 
   <div class="text-center">
+
     <v-file-input
         counter
         hide-input
         multiple
         show-size
         small-chips
+        accept="image/*"
+        label="File input"
         truncate-length="15"
-        target="_blank"
         @change="onFilePicked"
     ></v-file-input>
-    上傳文件
+    <v-spacer></v-spacer>
+
     <v-dialog
         v-model="upload_file_dialog"
         hide-overlay
@@ -62,6 +65,13 @@ export default {
       name: "upload",
       card_title:"正在上传",
       upload_file_dialog : false,
+      file: {
+        name: '',
+        url: '',
+        extension: '',
+        file: ''
+      },
+      uploadState: false,
       files: [],
       error: {
         state: false,
@@ -76,11 +86,48 @@ export default {
   components: {
   },
   methods:{
-
+    pickFile () {
+      alert('pickFile')
+      this.alert()
+      this.$refs.fileInput.click()
+    },
     onFilePicked(e){
-      const selectedFiles = e.target.files
+      console.log(e)
 
-      console.log(selectedFiles)
+      const selectedFiles = e
+      if (selectedFiles[0]) {
+
+        if (selectedFiles[0].size >= this.fileSize) {
+          this.alert(true, `File is too big. ${selectedFiles[0].size} Bytes`)
+        } else {
+          this.file.name = selectedFiles[0].name
+          this.file.extension = this.file.name.substr(this.file.name.indexOf('.') + 1)
+          if (this.file.name.lastIndexOf('.') <= 0) {
+            return
+          }
+          const fr = new FileReader()
+          fr.readAsDataURL(selectedFiles[0])
+          fr.addEventListener('load', () => {
+            this.file.url = fr.result
+            this.file.file = selectedFiles[0]
+          })
+        }
+        console.log(this.file)
+
+      } else {
+        this.defaults()
+      }
+    },
+
+    defaults () {
+      this.file.name = ''
+      this.file.file = ''
+      this.file.url = ''
+      this.file.extension = ''
+    },
+    alert (boolean, msg) {
+      this.error.state = boolean || false
+      this.error.msg = msg || ''
     }
   }
 }
