@@ -151,19 +151,31 @@
                 </v-btn>
               </template>
               <v-list>
-                <v-list-item
-                    v-for="(item, index) in uploadLists"
-                    :key="index"
-                    @click="item.methods"
-                >
-                  <v-list-item-title>{{ item.title }}{{item.methods}}</v-list-item-title>
+                <v-list-item @click="uploadFile()">
+                  <v-file-input
+                      counter
+                      disabled
+                      hide-input
+                      multiple
+                      show-size
+                      truncate-length="8"
+                  ></v-file-input>
+                  <v-list-item-title>上传文件</v-list-item-title>
                 </v-list-item>
               </v-list>
+              <v-list>
+                <v-list-item @click="uploadFolders()">
+                  <v-list-item-title>上传文件夹</v-list-item-title>
+                </v-list-item>
+              </v-list>
+              <v-list>
+                <v-list-item @click="createFolders()">
+                  <v-list-item-title>上传文件夹</v-list-item-title>
+                </v-list-item>
+              </v-list>
+
             </v-menu>
           </div>
-
-
-
 
 
           <div v-for="parentItem in items" :key="parentItem.header">
@@ -206,22 +218,6 @@ export default {
   data() {
     return {
       drawer: false,
-      uploadLists:[
-        {
-          title: '上传文件',
-          methods:"uploadFile()"
-        },
-        {
-          title: '上传文件夹',
-          methods:"uploadFolders"
-
-        },
-        {
-          title: '创建文件夹',
-          methods:"createFolders"
-
-        },
-      ],
       items: [
         {
           header: null,
@@ -251,6 +247,14 @@ export default {
     uploadFile(){
       alert(1231231)
       console.log('1231231231')
+
+    },
+    uploadFolders(){
+      alert("uploadFolders")
+    },
+    createFolders(){
+      alert("createFolders")
+
     }
 
   },

@@ -23,7 +23,13 @@ const routes = [
             default: () => import(/* webpackChunkName: "about" */ './views/home/folders')
         }
     },
-
+    {
+        path: '/upload',
+        name: 'upload',
+        components: {
+            default: () => import(/* webpackChunkName: "about" */ './views/home/upload')
+        }
+    },
 ]
 
 
