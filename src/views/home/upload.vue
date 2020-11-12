@@ -24,16 +24,12 @@
           color="pink"
           dark
       >
-        <v-app-bar-nav-icon></v-app-bar-nav-icon>
 
         <v-toolbar-title>Inbox</v-toolbar-title>
-
         <v-spacer></v-spacer>
-
         <v-btn icon>
           <v-icon>mdi-magnify</v-icon>
         </v-btn>
-
         <v-btn icon>
           <v-icon>mdi-checkbox-marked-circle</v-icon>
         </v-btn>
@@ -50,7 +46,6 @@
               <template v-slot:default="{ active }">
                 <v-list-item-content>
                   <v-list-item-title v-text="item.name"></v-list-item-title>
-                  <img :src="item.url" alt="">
                 </v-list-item-content>
 
                 <v-list-item-action>
@@ -140,16 +135,11 @@ export default {
       upload_file_dialog: false,
       uploadState: false,
       upload_file_list: [
-        {
-          name: '测试.jpg',
-          extension: 'jpg',
-          url: 'aaa/aaa/jpg',
-          file: ''
-        }
+        []
       ],
       responseType: 'success',
       fileType: 'image/*',
-      fileSize: '524288',
+      fileSize: '5242880',
 
       selectedFile: []
     }
@@ -160,14 +150,15 @@ export default {
 
     onFilePicked(files_data) {
 
-      files_data.forEach((item, key) => {
+      files_data.forEach((item) => {
 
         if (item.size >= this.fileSize) {
           this.alert(true, `File is too big. ${item.size} Bytes`)
         } else {
-          this.upload_file_list[key] = [];
-          this.upload_file_list[key]['name'] = item['name']
-          this.upload_file_list[key].extension = this.upload_file_list[key].name.substr(this.upload_file_list[key].name.indexOf('.') + 1)
+          // this.upload_file_list[key] = [];
+          // this.upload_file_list[key]['name'] = item['name']
+          // this.upload_file_list[key].extension =
+
           // if (this.upload_file_list[key].name.lastIndexOf('.') <= 0) {
           //   this.$delete(this.upload_file_list,key)
           // break;
@@ -175,12 +166,16 @@ export default {
           const fr = new FileReader()
           fr.readAsDataURL(item)
           fr.addEventListener('load', () => {
-            this.upload_file_list[key].url = fr.result
-            this.upload_file_list[key].file = item
+            let item_name = item['name']
+            let item_extension = item_name.substr(item_name.indexOf('.') + 1)
+            this.upload_file_list.push({
+              name: item_name,
+              extension: item_extension,
+              url: fr.result,
+              file: fr
+            })
 
-            console.log(this.upload_file_list, 'upload success', key)
           })
-
         }
       })
       console.log("this.upload_file_list")
