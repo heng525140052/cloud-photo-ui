@@ -43,26 +43,14 @@
         >
           <template v-for="(item, index) in upload_file_list">
             <v-list-item :key="item.title">
-              <template v-slot:default="{ active }">
+              <template>
                 <v-list-item-content>
                   <v-list-item-title v-text="item.name"></v-list-item-title>
                 </v-list-item-content>
 
                 <v-list-item-action>
                   <v-list-item-action-text v-text="item.extension"></v-list-item-action-text>
-                  <v-icon
-                      v-if="!active"
-                      color="grey lighten-1"
-                  >
-                    mdi-star-outline
-                  </v-icon>
 
-                  <v-icon
-                      v-else
-                      color="yellow darken-3"
-                  >
-                    mdi-star
-                  </v-icon>
                 </v-list-item-action>
               </template>
             </v-list-item>
@@ -134,9 +122,7 @@ export default {
       card_title: "正在上传",
       upload_file_dialog: false,
       uploadState: false,
-      upload_file_list: [
-        []
-      ],
+      upload_file_list: [],
       responseType: 'success',
       fileType: 'image/*',
       fileSize: '5242880',
@@ -155,14 +141,6 @@ export default {
         if (item.size >= this.fileSize) {
           this.alert(true, `File is too big. ${item.size} Bytes`)
         } else {
-          // this.upload_file_list[key] = [];
-          // this.upload_file_list[key]['name'] = item['name']
-          // this.upload_file_list[key].extension =
-
-          // if (this.upload_file_list[key].name.lastIndexOf('.') <= 0) {
-          //   this.$delete(this.upload_file_list,key)
-          // break;
-          // }
           const fr = new FileReader()
           fr.readAsDataURL(item)
           fr.addEventListener('load', () => {
@@ -171,6 +149,7 @@ export default {
             this.upload_file_list.push({
               name: item_name,
               extension: item_extension,
+              upload_status: false,
               url: fr.result,
               file: fr
             })
@@ -182,6 +161,9 @@ export default {
       console.log(this.upload_file_list)
       console.log("this.upload_file_list")
     },
+    uploadFile() {
+
+    }
 
   }
 }
