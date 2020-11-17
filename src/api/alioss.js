@@ -1,6 +1,8 @@
 import OSS from 'ali-oss'
 
-var client = new OSS({
+
+
+const client = new OSS({
     accessKeyId: 'LTAI4G9VoRaPw9gpiZNLmfFy',
     accessKeySecret: 'fJ2Y0fA35HQDKW1NVn1tKRP0JfKWAY',
     bucket: 'golong-cloud',
@@ -64,6 +66,16 @@ class AliOssController {
         }
 
     }
+
+    static async put(params) {
+        try {
+            //object-name可以自定义为文件名（例如file.txt）或目录（例如abc/test/file.txt）的形式，实现将文件上传至当前Bucket或Bucket下的指定目录。
+            return await client.put(params.name, params.file)
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
 }
 
 export default AliOssController

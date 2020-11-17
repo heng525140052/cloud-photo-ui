@@ -44,7 +44,13 @@
           <template v-for="(item, index) in upload_file_list">
             <v-list-item :key="item.title">
               <template>
+
+                <v-list-tile-avatar>
+                  <v-icon large color="green darken-2">{{ item.icon }}</v-icon>
+                </v-list-tile-avatar>
+
                 <v-list-item-content>
+
                   <v-list-item-title v-text="item.name"></v-list-item-title>
                 </v-list-item-content>
 
@@ -64,49 +70,13 @@
       </v-list>
     </v-card>
 
-
-    <v-dialog
-        v-model="upload_file_dialog"
-        hide-overlay
-        persistent
-        width="500"
+    <v-btn
+        depressed
+        color="primary"
+        @click="uploadFile"
     >
-      <template v-slot:activator="{ on, attrs }">
-        <v-btn
-            color="red lighten-2"
-            v-bind="attrs"
-            v-on="on"
-        >
-          Click Me
-        </v-btn>
-      </template>
-
-      <v-card>
-        <v-card-title class="headline grey darken-4 lighten-2">
-          {{ card_title }}
-          <v-spacer></v-spacer>
-
-          <v-btn
-              color="primary"
-              text
-              @click="upload_file_dialog = false"
-          >
-            I accept
-          </v-btn>
-        </v-card-title>
-
-        <v-card-text>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-          magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-          consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
-          est laborum.
-        </v-card-text>
-
-        <v-divider></v-divider>
-
-      </v-card>
-    </v-dialog>
+      Primary
+    </v-btn>
 
 
   </div>
@@ -114,6 +84,8 @@
 </template>
 
 <script>
+
+import AliOssController from "@/api/alioss";
 
 export default {
   data() {
@@ -126,7 +98,6 @@ export default {
       responseType: 'success',
       fileType: 'image/*',
       fileSize: '5242880',
-
       selectedFile: []
     }
 
@@ -135,7 +106,9 @@ export default {
   methods: {
 
     onFilePicked(files_data) {
-
+      console.log('files_data')
+      console.log(files_data)
+      console.log('files_data')
       files_data.forEach((item) => {
 
         if (item.size >= this.fileSize) {
@@ -146,23 +119,36 @@ export default {
           fr.addEventListener('load', () => {
             let item_name = item['name']
             let item_extension = item_name.substr(item_name.indexOf('.') + 1)
+            let file_icon = '';
+            if (item.type === 'image/*') {
+              file_icon = 'mdi-image'
+            } else if (item === 'video/*') {
+              file_icon = 'mdi-file-video'
+            } else if (item === 'audio/*') {
+              file_icon = 'mdi-book-music'
+            }
+
             this.upload_file_list.push({
               name: item_name,
               extension: item_extension,
               upload_status: false,
               url: fr.result,
-              file: fr
+              icon: file_icon,
+              file: item
             })
 
           })
         }
       })
-      console.log("this.upload_file_list")
-      console.log(this.upload_file_list)
-      console.log("this.upload_file_list")
     },
     uploadFile() {
+      const params = this.upload_file_list[0];
 
+      console.log(params)
+
+      AliOssController.put(params).then(data => {
+        console.log(data);
+      });
     }
 
   }

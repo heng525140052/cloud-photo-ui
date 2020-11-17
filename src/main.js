@@ -6,14 +6,17 @@ import vuetify from './plugins/vuetify'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 
-import 'viewerjs/dist/viewer.css'
-import Viewer from 'v-viewer'
-Vue.use(Viewer, {
-  debug: true,
-  defaultOptions: {
-    zIndex: 9999
-  }
+import 'material-design-icons-iconfont/dist/material-design-icons.css' // Ensure you are using css-loader
+import Vuetify from 'vuetify/lib'
+
+Vue.use(Vuetify)
+
+export default new Vuetify({
+  icons: {
+    iconfont: 'md',
+  },
 })
+
 
 
 new Vue({
