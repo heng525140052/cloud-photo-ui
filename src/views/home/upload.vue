@@ -45,18 +45,19 @@
             <v-list-item :key="item.title">
               <template>
 
-                <v-list-tile-avatar>
-                  <v-icon large color="green darken-2">{{ item.icon }}</v-icon>
-                </v-list-tile-avatar>
+                <v-list-item-action>
+                  <v-icon large color="green darken-2">{{ item.file_icon }}</v-icon>
+                </v-list-item-action>
 
                 <v-list-item-content>
-
                   <v-list-item-title v-text="item.name"></v-list-item-title>
                 </v-list-item-content>
 
                 <v-list-item-action>
+                  <v-list-item-action>
+                    <v-icon large color="green darken-2">{{ item.file_icon }}</v-icon>
+                  </v-list-item-action>
                   <v-list-item-action-text v-text="item.extension"></v-list-item-action-text>
-
                 </v-list-item-action>
               </template>
             </v-list-item>
@@ -86,6 +87,7 @@
 <script>
 
 import AliOssController from "@/api/alioss";
+import util from "@/libs/util";
 
 export default {
   data() {
@@ -106,9 +108,7 @@ export default {
   methods: {
 
     onFilePicked(files_data) {
-      console.log('files_data')
-      console.log(files_data)
-      console.log('files_data')
+
       files_data.forEach((item) => {
 
         if (item.size >= this.fileSize) {
@@ -120,26 +120,38 @@ export default {
             let item_name = item['name']
             let item_extension = item_name.substr(item_name.indexOf('.') + 1)
             let file_icon = '';
-            if (item.type === 'image/*') {
+
+
+
+            let filetype = util.matchType(item.type)
+
+            if (filetype === 'image') {
               file_icon = 'mdi-image'
-            } else if (item === 'video/*') {
+            } else if (filetype === 'video') {
               file_icon = 'mdi-file-video'
-            } else if (item === 'audio/*') {
+            } else if (filetype === 'audio') {
               file_icon = 'mdi-book-music'
+            }else if (filetype === 'other') {
+              file_icon = 'mdi-file'
             }
+            console.log('file_icon')
+            console.log(filetype)
+            console.log(file_icon)
+            console.log('file_icon')
 
             this.upload_file_list.push({
               name: item_name,
               extension: item_extension,
               upload_status: false,
               url: fr.result,
-              icon: file_icon,
+              file_icon: file_icon,
               file: item
             })
 
           })
         }
       })
+      console.log(this.upload_file_list)
     },
     uploadFile() {
       const params = this.upload_file_list[0];
