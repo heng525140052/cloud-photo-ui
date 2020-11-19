@@ -12,11 +12,9 @@
         label="File input"
         truncate-length="15"
         @change="UploadFile"
-    >真的吗
+    >
     </v-file-input>
     <v-spacer></v-spacer>
-
-    <!--    :none="uploadFileListState"-->
 
     <v-card
         class="mx-auto upload-file-list"
@@ -24,6 +22,7 @@
         flat
         none="true"
         display="none"
+        v-show="uploadFileListState"
     >
       <v-toolbar
           color="pink"
@@ -51,7 +50,7 @@
         <v-list-item
             v-for="item in upload_file_list"
             :key="item.title"
-            :none="true"
+            v-show="uploadFileListFileState"
         >
           <v-list-item-avatar>
             <v-icon large color="green darken-2">{{ item.file_icon }}</v-icon>
