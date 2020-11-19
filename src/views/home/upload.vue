@@ -37,7 +37,7 @@
           <v-icon v-else>mdi-chevron-up</v-icon>
 
         </v-btn>
-        <v-btn icon @click="uploadFileListState = true">
+        <v-btn icon @click="uploadFileListState = false">
           <v-icon>mdi-close</v-icon>
         </v-btn>
       </v-toolbar>
@@ -92,7 +92,7 @@ export default {
       fileType: 'image/*',
       fileSize: '5242880',
       uploadFileListState: false,
-      uploadFileListFileState: false,
+      uploadFileListFileState: true,
     }
 
   },
@@ -137,6 +137,7 @@ export default {
 
             AliOssController.put(file_item).then(data => {
               console.log(data);
+              this.uploadFileListState = true
             });
 
           })
