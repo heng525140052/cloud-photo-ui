@@ -16,11 +16,14 @@
     </v-file-input>
     <v-spacer></v-spacer>
 
+    <!--    :none="uploadFileListState"-->
 
     <v-card
         class="mx-auto upload-file-list"
         max-width="500"
-
+        flat
+        none="true"
+        display="none"
     >
       <v-toolbar
           color="pink"
@@ -29,44 +32,42 @@
 
         <v-toolbar-title>上传文件列表</v-toolbar-title>
         <v-spacer></v-spacer>
-        <v-btn icon>
-          <v-icon>mdi-magnify</v-icon>
+        <v-btn icon @click="uploadFileListFileState = !uploadFileListFileState">
+
+          <v-icon v-if="uploadFileListFileState === true">mdi-chevron-down</v-icon>
+          <v-icon v-else>mdi-chevron-up</v-icon>
+
         </v-btn>
-        <v-btn icon @click="uploadFileListState = !uploadFileListState">
-          <v-icon>mdi-minus</v-icon>
+        <v-btn icon @click="uploadFileListState = true">
+          <v-icon>mdi-close</v-icon>
         </v-btn>
       </v-toolbar>
 
-      <v-list>
-        <v-list-item-group
-            active-class="pink--text"
-            multiple
-            :hidden="uploadFileListState"
+      <v-list
+          subheader
+          two-line
+      >
+
+        <v-list-item
+            v-for="item in upload_file_list"
+            :key="item.title"
+            :none="true"
         >
-          <template v-for="(item, index) in upload_file_list" >
-            <v-list-item :key="item.title" >
-              <template>
-                <v-list-item-avatar>
-                  <v-icon large color="green darken-2">{{ item.file_icon }}</v-icon>
-                </v-list-item-avatar>
-                <v-list-item-content>
-                  <v-list-item-title v-text="item.name"></v-list-item-title>
-                </v-list-item-content>
-                <v-list-item-action>
-                  <v-list-item-action>
-                    <v-btn class="ma-2" color="primary" dark @v-on="changeUploadFileButton">
-                      <v-icon dark right>mdi-checkbox-marked-circle</v-icon>
-                    </v-btn>
-                  </v-list-item-action>
-                </v-list-item-action>
-              </template>
-            </v-list-item>
-            <v-divider
-                v-if="index < upload_file_list.length - 1"
-                :key="index"
-            ></v-divider>
-          </template>
-        </v-list-item-group>
+          <v-list-item-avatar>
+            <v-icon large color="green darken-2">{{ item.file_icon }}</v-icon>
+          </v-list-item-avatar>
+
+          <v-list-item-content>
+            <v-list-item-title v-text="item.name"></v-list-item-title>
+          </v-list-item-content>
+
+          <v-list-item-action>
+            <v-btn icon>
+              <v-icon color="grey lighten-1">mdi-information</v-icon>
+            </v-btn>
+          </v-list-item-action>
+        </v-list-item>
+
       </v-list>
     </v-card>
 
@@ -144,16 +145,6 @@ export default {
       })
     },
 
-    changeUploadFileButton() {
-      console.log('++++++++++++++++++')
-      console.log(this.uploadFileListState)
-
-      this.uploadFileListState = true
-      console.log('-----------------')
-
-      console.log(this.uploadFileListState)
-      console.log('++++++++++++++++++')
-    },
 
   }
 }
