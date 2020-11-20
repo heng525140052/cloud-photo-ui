@@ -151,15 +151,22 @@
                 </v-btn>
               </template>
               <v-list>
+
                 <v-list-item @click="uploadFile()">
                   <v-file-input
                       counter
-                      disabled
                       hide-input
                       multiple
                       show-size
-                      truncate-length="8"
-                  ></v-file-input>
+                      small-chips
+                      accept="image/*"
+                      label="File input"
+                      truncate-length="15"
+                      @change="UploadFile"
+                  >
+                  </v-file-input>
+
+
                   <v-list-item-title>上传文件</v-list-item-title>
                 </v-list-item>
               </v-list>
@@ -244,11 +251,7 @@ export default {
         query: { 'search-query': this.searchText }
       })
     },
-    uploadFile(){
-      alert(1231231)
-      console.log('1231231231')
 
-    },
     uploadFolders(){
       alert("uploadFolders")
     },

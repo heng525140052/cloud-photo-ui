@@ -10,11 +10,12 @@
           'Video',
           'Detail'
         ].includes(this.$route.name)
-          ? true
-          : false
       }"
     >
       <router-view></router-view>
+
+      <router-view name="Upload" ></router-view>
+
     </v-content>
   </v-app>
 </template>

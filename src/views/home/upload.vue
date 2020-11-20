@@ -37,7 +37,7 @@
           <v-icon v-else>mdi-chevron-up</v-icon>
 
         </v-btn>
-        <v-btn icon @click="uploadFileListState = false">
+        <v-btn icon @click="uploadFileListState = false; upload_file_list=[]">
           <v-icon>mdi-close</v-icon>
         </v-btn>
       </v-toolbar>
@@ -83,13 +83,8 @@ import util from "@/libs/util";
 export default {
   data() {
     return {
-      name: "upload",
-      card_title: "正在上传",
-      upload_file_dialog: false,
-      uploadState: false,
-      upload_file_list: [],
-      responseType: 'success',
-      fileType: 'image/*',
+      card_title: "上传文件列表",
+      upload_file_list: [],//关闭标签后在上面 click 事件中初始化了
       fileSize: '5242880',
       uploadFileListState: false,
       uploadFileListFileState: true,

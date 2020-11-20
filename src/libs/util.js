@@ -62,7 +62,7 @@ util.matchType = function (fileName) {
         return result;
     }
     // 图片格式
-    var imglist = ['png', 'jpg', 'jpeg', 'bmp', 'gif'];
+    var imglist = ['image/png', 'image/jpg', 'image/jpeg', 'image/bmp', 'image/gif'];
     // 进行图片匹配
     result = imglist.some(function (item) {
         return item === suffix;
@@ -128,7 +128,7 @@ util.matchType = function (fileName) {
     // 匹配 音频
     var radiolist = ['mp3', 'wav', 'wmv'];
     result = radiolist.some(function (item) {
-        return item === suffix;
+        return item == suffix;
     })
     if (result) {
         result = 'radio';

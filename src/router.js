@@ -1,6 +1,7 @@
 import VueRouter from "vue-router"
 import Vue from 'vue'
 import NavBar from '@/components/NavBar.vue'
+import Upload from "@/components/Upload";
 
 
 Vue.use(VueRouter)
@@ -12,6 +13,7 @@ const routes = [
         name: 'Home',
         components: {
             NavBar,
+            Upload,
             default: () => import(/* webpackChunkName: "about" */ './views/home/my-drive')
         }
     },
@@ -19,7 +21,8 @@ const routes = [
         path: '/folders',
         name: 'folders',
         components: {
-            // NavBar,
+            NavBar,
+            Upload,
             default: () => import(/* webpackChunkName: "about" */ './views/home/folders')
         }
     },
