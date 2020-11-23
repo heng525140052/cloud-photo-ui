@@ -1,22 +1,9 @@
 <template>
   <v-app>
-    <router-view name="NavBar"></router-view>
-    <v-content
-        :class="{
-        'content-bg': ![
-          'SignIn',
-          'SignUp',
-          'Dashboard',
-          'Video',
-          'Detail'
-        ].includes(this.$route.name)
-      }"
-    >
+
       <router-view></router-view>
 
-      <router-view name="Upload" ></router-view>
 
-    </v-content>
   </v-app>
 </template>
 
