@@ -10,11 +10,21 @@ Vue.use(Router)
 const routes = [
     {
         path: '/',
-        name: 'Home',
-        components: {
-            LayoutDefault,
-            default: () => import(/* webpackChunkName: "about" */ '../views/home/folders')
-        }
+        name: 'index',
+        component: LayoutDefault,
+        meta: {title: '主页'},
+        children: [
+            {
+                path: '/folders',
+                name: 'folders',
+                component:  () => import('../views/home/folders'),
+                meta: {title: '仪表盘', permission: ['dashboard']},
+            },
+        ]
+        // components: {
+        //     LayoutDefault,
+        //     default: () => import(/* webpackChunkName: "about" */ '../views/home/folders')
+        // }
     },
 ]
 
