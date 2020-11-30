@@ -28,8 +28,8 @@
 
 <script>
 
-import AliOssController from "@/api/alioss";
-import DriveCard from '@/components/DriveCard'
+import AliOssController from "../../api/alioss";
+import DriveCard from '../../components/DriveCard'
 
 
 export default {
@@ -38,7 +38,7 @@ export default {
       menuDir: '',
       dir_list: [],
       file_list: [],
-      loading: true,
+      loading: false,
       channel: {
         url: '/channels/12',
         avatar: 'https://randomuser.me/api/portraits/men/1.jpg'
@@ -51,9 +51,9 @@ export default {
     DriveCard
   },
   mounted() {
-    setTimeout(() => {
-      this.loading = false
-    }, 3000)
+    // setTimeout(() => {
+    //   this.loading = false
+    // }, 3000)
 
     this.fileList()
   },

@@ -15,16 +15,19 @@ const routes = [
         meta: {title: '主页'},
         children: [
             {
+                path: '/drive',
+                name: 'drive',
+                component:  () => import('../views/home/my-drive'),
+                // meta: {title: '仪表盘', permission: ['dashboard']},
+            },
+            {
                 path: '/folders',
                 name: 'folders',
                 component:  () => import('../views/home/folders'),
-                meta: {title: '仪表盘', permission: ['dashboard']},
+                // meta: {title: '仪表盘', permission: ['dashboard']},
             },
         ]
-        // components: {
-        //     LayoutDefault,
-        //     default: () => import(/* webpackChunkName: "about" */ '../views/home/folders')
-        // }
+
     },
 ]
 
