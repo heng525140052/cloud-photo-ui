@@ -319,6 +319,9 @@
         data() {
             return {
                 drawer: false,
+                dir_list:{
+
+                },
                 items: [
                     {
                         header: null,
@@ -349,9 +352,10 @@
                 if (!this.searchText) return
                 this.$router.push({
                     name: 'Search',
-                    query: {'search-query': this.searchText}
+                    query: {'search-query': this.searchText} //
                 })
             },
+
             UploadFile(files_data) {
 
                 files_data.forEach((item) => {
@@ -468,13 +472,13 @@
         }
 
         .vb > .vb-dragger:hover > .vb-dragger-styler {
-            margin: 0px;
+            margin: 0;
             width: 10px;
         }
 
         .vb.vb-dragging > .vb-dragger > .vb-dragger-styler {
             background-color: rgba(48, 121, 244, 0.5);
-            margin: 0px;
+            margin: 0;
             height: 100%;
         }
 
@@ -487,7 +491,7 @@
         width: 500px;
         z-index: 9999;
         position: fixed ! important;
-        right: 0;
-        bottom: 0;
+        right: 10px;
+        bottom: 10px;
     }
 </style>
